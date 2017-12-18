@@ -1,0 +1,29 @@
+{
+  "name": "cordova-plugin-geoalarm",
+  "version": "0.9.0",
+  "description": "Cordova geoalarm plugin",
+  "cordova": {
+    "id": "cordova-plugin-geoalarm",
+    "platforms": [
+      "ios",
+      "android"
+    ]
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dev-ys/cordova-plugin-geoalarm.git"
+  },
+  "keywords": [
+    "cordova",
+    "alarm",
+    "ecosystem:cordova",
+    "cordova-ios",
+    "cordova-android"
+  ],
+  "author": "BB Labs",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/dev-ys/cordova-plugin-geoalarm/issues"
+  },
+  "homepage": "https://github.com/dev-ys/cordova-plugin-geoalarm#readme"
+}

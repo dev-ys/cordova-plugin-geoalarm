@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<plugin xmlns="http://apache.org/cordova/ns/plugins/1.0"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        id="cordova-plugin-geoalarm"
+        version="0.9.0">
+
+    <name>geoalarm</name>
+    <description>Geoalarm plugin</description>
+    <license>Apache 2.0</license>
+    <keywords>cordova, alarm</keywords>
+    <repo>https://github.com/dev-ys/cordova-plugin-geoalarm.git</repo>
+
+    <js-module src="www/geoalarm.js" name="geoalarm">
+        <clobbers target="geoalarm" />
+    </js-module>
+
+    <dependency id="cordova-plugin-add-swift-support" version="1.7.0" />
+
+    <!-- android -->
+    <platform name="android">
+        <config-file target="config.xml" parent="/*">
+            <feature name="GeoalarmPlugin">
+                <param name="android-package" value="com.bb.cordova.geoalarm.GeoalarmPlugin" />
+            </feature>
+        </config-file>
+
+        <config-file target="AndroidManifest.xml" parent="/manifest">
+            <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+            <uses-permission android:name="android.permission.WAKE_LOCK" />
+            <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+            <uses-permission android:name="android.permission.VIBRATE" />
+            <!-- <uses-permission android:name="android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS" /> -->
+        </config-file>
+
+        <config-file target="AndroidManifest.xml" parent="/manifest/application">
+            <receiver android:name="com.bb.cordova.geoalarm.AlarmReceiver" />
+        </config-file>
+
+        <config-file target="AndroidManifest.xml" parent="/manifest/application">
+            <receiver android:name="com.bb.cordova.geoalarm.BootReceiver">
+                <intent-filter>
+                    <action android:name="android.intent.action.BOOT_COMPLETED" />
+                </intent-filter>
+            </receiver>
+        </config-file>
+
+        <source-file src="src/android/GeoalarmPlugin.java" target-dir="src/com/bb/cordova/geoalarm" />
+        <source-file src="src/android/Alarm.java" target-dir="src/com/bb/cordova/geoalarm" />
+        <source-file src="src/android/AlarmReceiver.java" target-dir="src/com/bb/cordova/geoalarm" />
+        <source-file src="src/android/BootReceiver.java" target-dir="src/com/bb/cordova/geoalarm" />
+        <source-file src="src/android/Gson.java" target-dir="src/com/bb/cordova/geoalarm" />
+
+        <framework src="com.google.android.gms:play-services-location:+" />
+        <lib-file src="src/android/libs/gson-2.3.jar" />
+    </platform>
+
+    <!-- ios -->
+    <platform name="ios">
+        <config-file target="config.xml" parent="/*">
+          <feature name="GeoalarmPlugin">
+            <param name="ios-package" value="GeoalarmPlugin"/>
+          </feature>
+        </config-file>
+
+        <config-file target="*-Info.plist" parent="NSLocationAlwaysUsageDescription">
+            <string>This app would like to use your current location even in background.</string>
+        </config-file>
+
+        <config-file target="*-Info.plist" parent="NSLocationWhenInUseUsageDescription">
+            <string>This app would like to use your current location when in use.</string>
+        </config-file>
+
+        <header-file src="src/ios/Geoalarm-Plugin-Bridging-Header.h" />
+        <source-file src="src/ios/GeoalarmPlugin.swift"/>
+        <source-file src="src/ios/SwiftyJson.swift"/>
+    </platform>
+</plugin>
